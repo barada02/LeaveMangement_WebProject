@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Login</title>
+    <title>Company Login Portal</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="login-container">
+            <div class="company-logo">
+                <i class="fas fa-building"></i>
+            </div>
             <div class="form-container">
                 <h1>Welcome Back</h1>
                 <p class="subtitle">Please login to your account</p>
@@ -17,7 +20,7 @@
                 <form id="loginForm">
                     <div class="input-group">
                         <i class="fas fa-user"></i>
-                        <input type="text" id="username" placeholder="Username" required>
+                        <input type="text" id="username" placeholder="Employee ID" required>
                     </div>
                     
                     <div class="input-group">
@@ -34,27 +37,13 @@
                         <a href="#" class="forgot-password">Forgot Password?</a>
                     </div>
                     
-                    <button type="submit" class="login-btn">Login</button>
-                    
-                    <div class="divider">
-                        <span>Or continue with</span>
-                    </div>
-                    
-                    <div class="social-login">
-                        <button type="button" class="social-btn google">
-                            <i class="fab fa-google"></i>
-                            Google
-                        </button>
-                        <button type="button" class="social-btn facebook">
-                            <i class="fab fa-facebook-f"></i>
-                            Facebook
-                        </button>
-                    </div>
-                    
-                    <p class="signup-link">
-                        Don't have an account? <a href="#">Sign up</a>
-                    </p>
+                    <button type="submit" class="login-btn">Login to Dashboard</button>
                 </form>
+
+                <footer class="login-footer">
+                    <p> 2024 Company Name. All rights reserved.</p>
+                    <p class="support">Need help? Contact IT Support</p>
+                </footer>
             </div>
         </div>
     </div>

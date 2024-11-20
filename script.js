@@ -35,23 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
         simulateLogin(username, password);
     });
 
-    // Social login buttons
-    document.querySelector('.google').addEventListener('click', () => {
-        // Implement Google login
-        console.log('Google login clicked');
-    });
-
-    document.querySelector('.facebook').addEventListener('click', () => {
-        // Implement Facebook login
-        console.log('Facebook login clicked');
-    });
-
     // Load remembered username if exists
     const rememberedUsername = localStorage.getItem('rememberedUsername');
     if (rememberedUsername) {
         document.getElementById('username').value = rememberedUsername;
         rememberMe.checked = true;
     }
+
+    // Add input validation on blur
+    document.getElementById('username').addEventListener('blur', function() {
+        validateEmployeeId(this.value);
+    });
 });
 
 // Form validation
@@ -59,15 +53,15 @@ function validateForm(username, password) {
     let isValid = true;
     const errorMessages = [];
 
-    // Username validation
-    if (username.trim() === '') {
-        errorMessages.push('Username is required');
+    // Employee ID validation
+    if (!validateEmployeeId(username)) {
+        errorMessages.push('Please enter a valid Employee ID');
         isValid = false;
     }
 
     // Password validation
-    if (password.length < 6) {
-        errorMessages.push('Password must be at least 6 characters long');
+    if (password.length < 8) {
+        errorMessages.push('Password must be at least 8 characters long');
         isValid = false;
     }
 
@@ -77,6 +71,13 @@ function validateForm(username, password) {
     }
 
     return isValid;
+}
+
+// Employee ID validation
+function validateEmployeeId(employeeId) {
+    // Modify this regex pattern according to your company's employee ID format
+    const employeeIdPattern = /^[A-Z0-9]{6,}$/i;
+    return employeeIdPattern.test(employeeId);
 }
 
 // Show error message
@@ -90,14 +91,6 @@ function showError(message) {
     // Create and show new error message
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
-    errorDiv.style.cssText = `
-        color: #ff3333;
-        background-color: #ffe6e6;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        text-align: center;
-    `;
     errorDiv.textContent = message;
     
     const form = document.getElementById('loginForm');
@@ -116,7 +109,7 @@ function simulateLogin(username, password) {
     
     // Show loading state
     loginBtn.disabled = true;
-    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
 
     // Simulate API call
     setTimeout(() => {
@@ -125,7 +118,7 @@ function simulateLogin(username, password) {
         loginBtn.textContent = originalText;
 
         // Show success message
-        showSuccess('Login successful! Redirecting...');
+        showSuccess('Login successful! Redirecting to dashboard...');
         
         // Redirect after success (replace with actual redirect)
         setTimeout(() => {
@@ -138,14 +131,6 @@ function simulateLogin(username, password) {
 function showSuccess(message) {
     const successDiv = document.createElement('div');
     successDiv.className = 'success-message';
-    successDiv.style.cssText = `
-        color: #28a745;
-        background-color: #d4edda;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        text-align: center;
-    `;
     successDiv.textContent = message;
     
     const form = document.getElementById('loginForm');
