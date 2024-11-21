@@ -5,47 +5,64 @@ document.addEventListener('DOMContentLoaded', () => {
     const rememberMe = document.getElementById('remember');
     
     // Password visibility toggle
-    togglePassword.addEventListener('click', () => {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePassword.classList.toggle('fa-eye');
-        togglePassword.classList.toggle('fa-eye-slash');
-    });
-
-    // Form submission
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const password = passwordInput.value;
-        
-        // Basic form validation
-        if (!validateForm(username, password)) {
-            return;
-        }
-
-        // Save remember me preference
-        if (rememberMe.checked) {
-            localStorage.setItem('rememberedUsername', username);
+    function togglePasswordVisibility() {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
         } else {
-            localStorage.removeItem('rememberedUsername');
+            passwordInput.type = 'password';
+            togglePassword.classList.remove('fa-eye');
+            togglePassword.classList.add('fa-eye-slash');
         }
-
-        // Simulate login - Replace with actual login logic
-        simulateLogin(username, password);
-    });
-
-    // Load remembered username if exists
-    const rememberedUsername = localStorage.getItem('rememberedUsername');
-    if (rememberedUsername) {
-        document.getElementById('username').value = rememberedUsername;
-        rememberMe.checked = true;
     }
 
-    // Add input validation on blur
-    document.getElementById('username').addEventListener('blur', function() {
-        validateEmployeeId(this.value);
-    });
+    // Add click event for password toggle
+    if (togglePassword) {
+        togglePassword.addEventListener('click', togglePasswordVisibility);
+    }
+
+    // Handle form submission
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Use auth.js to validate credentials
+            const user = validateCredentials(username, password);
+            
+            if (user) {
+                // Store user session using auth.js
+                storeUserSession(user);
+                
+                // Save remember me preference if checked
+                if (rememberMe && rememberMe.checked) {
+                    localStorage.setItem('rememberedUser', username);
+                } else {
+                    localStorage.removeItem('rememberedUser');
+                }
+                
+                // Redirect to dashboard
+                window.location.href = '../dashboard/employeeDashboard.html';
+            } else {
+                alert('Invalid credentials. Please try again.');
+            }
+        });
+    }
+
+    // Check for remembered user
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+        const usernameInput = document.getElementById('username');
+        if (usernameInput) {
+            usernameInput.value = rememberedUser;
+            if (rememberMe) {
+                rememberMe.checked = true;
+            }
+        }
+    }
 });
 
 // Form validation
@@ -136,3 +153,8 @@ function showSuccess(message) {
     const form = document.getElementById('loginForm');
     form.insertBefore(successDiv, form.firstChild);
 }
+
+// Add input validation on blur
+document.getElementById('username').addEventListener('blur', function() {
+    validateEmployeeId(this.value);
+});
