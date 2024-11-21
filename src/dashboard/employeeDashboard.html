@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Leave Management System</title>
+    <link rel="stylesheet" href="../dashboard/employeeDashStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-building"></i>
+                <span>LMS Dashboard</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#apply-leave">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Apply Leave</span>
+                </a>
+                <a href="#leave-history">
+                    <i class="fas fa-history"></i>
+                    <span>Leave History</span>
+                </a>
+                <a href="#profile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="#settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="../index.html" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="header-right">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <span>John Doe</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Leave Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #e3f2fd;">
+                            <i class="fas fa-calendar-check" style="color: #1976d2;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>12</h3>
+                            <p>Available Leaves</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #fce4ec;">
+                            <i class="fas fa-calendar-minus" style="color: #c2185b;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>5</h3>
+                            <p>Taken Leaves</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #f3e5f5;">
+                            <i class="fas fa-hourglass-half" style="color: #7b1fa2;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>2</h3>
+                            <p>Pending Requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Leave Request -->
+                <div class="leave-request-section">
+                    <h2>Quick Leave Request</h2>
+                    <form class="leave-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Leave Type</label>
+                                <select name="leave-type" required>
+                                    <option value="">Select Leave Type</option>
+                                    <option value="annual">Annual Leave</option>
+                                    <option value="sick">Sick Leave</option>
+                                    <option value="personal">Personal Leave</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" name="start-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" name="end-date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Reason</label>
+                            <textarea name="reason" rows="3" placeholder="Enter your leave reason"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                    </form>
+                </div>
+
+                <!-- Recent Leave History -->
+                <div class="recent-leaves">
+                    <h2>Recent Leave History</h2>
+                    <div class="leave-history-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Days</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Annual Leave</td>
+                                    <td>2024-01-15</td>
+                                    <td>2024-01-20</td>
+                                    <td>5</td>
+                                    <td><span class="status approved">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Sick Leave</td>
+                                    <td>2024-02-01</td>
+                                    <td>2024-02-02</td>
+                                    <td>2</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
