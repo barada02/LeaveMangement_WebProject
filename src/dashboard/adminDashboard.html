@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Leave Management System</title>
+    <link rel="stylesheet" href="adminDashStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Admin Dashboard</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#pending-leaves">
+                    <i class="fas fa-clock"></i>
+                    <span>Pending Leaves</span>
+                </a>
+                <a href="#approved-leaves">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Approved Leaves</span>
+                </a>
+                <a href="#rejected-leaves">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Rejected Leaves</span>
+                </a>
+                <a href="#employees">
+                    <i class="fas fa-users"></i>
+                    <span>Employees</span>
+                </a>
+                <a href="#reports">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="#settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="../login/login.html" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search leaves, employees...">
+                </div>
+                <div class="header-right">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="admin-profile">
+                        <img src="https://via.placeholder.com/40" alt="Admin">
+                        <span>Admin User</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #fff3e0;">
+                            <i class="fas fa-clock" style="color: #ff9800;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Pending Leaves</h3>
+                            <p class="count">12</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #e8f5e9;">
+                            <i class="fas fa-check-circle" style="color: #4caf50;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Approved Leaves</h3>
+                            <p class="count">45</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #ffebee;">
+                            <i class="fas fa-times-circle" style="color: #f44336;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Rejected Leaves</h3>
+                            <p class="count">8</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background-color: #e3f2fd;">
+                            <i class="fas fa-users" style="color: #2196f3;"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Total Employees</h3>
+                            <p class="count">150</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Leaves Section -->
+                <div class="section pending-leaves">
+                    <div class="section-header">
+                        <h2>Pending Leave Requests</h2>
+                        <button class="view-all">View All</button>
+                    </div>
+                    <div class="leave-requests">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Leave Type</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Duration</th>
+                                    <th>Reason</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Leave requests will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="section recent-activity">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <button class="view-all">View All</button>
+                    </div>
+                    <div class="activity-list">
+                        <!-- Activity items will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../login/auth.js"></script>
+    <script src="checkAuth.js"></script>
+    <script>
+        // Check if user is admin
+        checkAuth('admin');
+    </script>
+    <script src="adminDash.js"></script>
+</body>
+</html>
