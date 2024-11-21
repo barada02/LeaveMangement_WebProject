@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.removeItem('rememberedUser');
                 }
                 
-                // Redirect to dashboard
-                window.location.href = '../dashboard/employeeDashboard.html';
+                // Redirect based on role
+                redirectBasedOnRole();
             } else {
                 alert('Invalid credentials. Please try again.');
             }
@@ -158,3 +158,10 @@ function showSuccess(message) {
 document.getElementById('username').addEventListener('blur', function() {
     validateEmployeeId(this.value);
 });
+
+// Redirect based on role
+function redirectBasedOnRole() {
+    // TO DO: implement role-based redirection logic here
+    // For now, just redirect to a default dashboard
+    window.location.href = '../dashboard/employeeDashboard.html';
+}
