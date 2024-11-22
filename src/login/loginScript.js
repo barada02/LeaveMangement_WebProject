@@ -24,32 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle form submission
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Use auth.js to validate credentials
-            const user = validateCredentials(username, password);
-            
-            if (user) {
-                // Store user session using auth.js
-                storeUserSession(user);
-                
-                // Save remember me preference if checked
-                if (rememberMe && rememberMe.checked) {
-                    localStorage.setItem('rememberedUser', username);
-                } else {
-                    localStorage.removeItem('rememberedUser');
-                }
-                
-                // Redirect based on role
-                redirectBasedOnRole();
-            } else {
-                alert('Invalid credentials. Please try again.');
-            }
-        });
+        loginForm.addEventListener('submit', handleLogin);
     }
 
     // Check for remembered user
@@ -159,9 +134,36 @@ document.getElementById('username').addEventListener('blur', function() {
     validateEmployeeId(this.value);
 });
 
-// Redirect based on role
-function redirectBasedOnRole() {
-    // TO DO: implement role-based redirection logic here
-    // For now, just redirect to a default dashboard
-    window.location.href = '../dashboard/employeeDashboard.html';
+// Handle login
+async function handleLogin(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (!response.ok) {
+            throw new Error('Login failed');
+        }
+
+        const userData = await response.json();
+        sessionStorage.setItem('currentUser', JSON.stringify(userData));
+        
+        if (userData.role === 'admin') {
+            window.location.href = '/dashboard/admin';
+        } else {
+            window.location.href = '/dashboard/employee';
+        }
+    } catch (error) {
+        alert('Invalid username or password');
+        console.error('Login error:', error);
+    }
 }
