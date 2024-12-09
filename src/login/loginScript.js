@@ -24,31 +24,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle form submission
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
-            // Use auth.js to validate credentials
-            const user = validateCredentials(username, password);
-            
-            if (user) {
-                // Store user session using auth.js
-                storeUserSession(user);
-                
-                // Save remember me preference if checked
-                if (rememberMe && rememberMe.checked) {
-                    localStorage.setItem('rememberedUser', username);
-                } else {
-                    localStorage.removeItem('rememberedUser');
+
+            console.log('Attempting login with:', username);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '../../api/auth/login.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    console.log('Response received:', xhr.responseText);
+                    const response = JSON.parse(xhr.responseText);
+                    if (xhr.status === 200) {
+                        alert('Login successful!');
+                        if (response.user.role === 'admin') {
+                            window.location.href = '../dashboard/adminDashboard.html';
+                        } else {
+                            window.location.href = '../dashboard/employeeDashboard.html';
+                        }
+                    } else {
+                        alert(response.error || 'Login failed!');
+                    }
                 }
-                
-                // Redirect based on role
-                redirectBasedOnRole();
-            } else {
-                alert('Invalid credentials. Please try again.');
-            }
+            };
+
+            const data = JSON.stringify({ username: username, password: password });
+            console.log('Sending data:', data);
+            xhr.send(data);
         });
     }
 
